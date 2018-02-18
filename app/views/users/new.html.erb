@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Coding Dojos</title>
+    <style>
+    body {
+        padding: 2em;
+        background-image: url("http://www.wildtextures.com/wp-content/uploads/2011/11/wildtextures-wooden-chopping-board-texture.jpg"); !important;        
+        #background-image: url("https://www.desktopbackground.org/download/2560x1440/2014/08/05/804262_off-white-abstract-pattern-laminate-countertop-texture-picture_4608x3456_h.jpg"); !important; 
+        background-size: 100%  !important;
+        background-attachment: fixed;
+        font-family: "Verdana"; !important;
+        align-content: center; !important;
+    }
+    h1 {
+        margin-bottom: 1em;
+    }
+    .extra {
+        margin-top: .6em;
+        margin-bottom: .6em;
+    }
+    h3 {
+        padding-top: .4em;
+        padding-bottom: .4em;
+    }
+    .extra {
+        padding: 1em;
+    }
+    .together {
+        display: inline-block;
+        margin-right: .9em;
+    }
+    .width {
+        width: 20 %
+
+    }
+    .piece {
+        padding: 1em;
+        width: 60%;
+        background-color: rgba(255,235,205, .8);
+        border: 2px solid black;
+        border-radius: 5px;
+       
+        
+        
+        }
+    
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+</head>
+<body >
+<div class="piece mx-auto">
+    <h1>Register</h1>
+    <form action="/users/create" method="post">
+
+    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+
+        <table>
+        <tr>    <td><label for="username">Username</label></td>
+                <td><input type="text" id="username" name=user[username] placeholder="Username Here"><br></td></tr>
+        
+        <tr> <td>   <label for="email">Email</label></td>
+            <td><input type="text" id="email" name=user[email] placeholder="Email"><br></td></tr>
+
+        <tr> <td>   <label for="password">Password</label></td>
+            <td><input type="password" id="password" name=user[password] placeholder="Password"><br></td></tr>
+        <tr> <td>   <label for="password_confirmation">Password Confirmation</label></td>
+            <td><input type="password" id="password_confirmation" name=user[password_confirmation] placeholder="Retype Passowrd"><br></td></tr>
+        </table>
+
+
+    <input type="submit" name="create" value="Register">
+
+
+    </form>
+</div>
+<br>
+<div class="piece mx-auto">
+    <h1>Log In</h1>
+
+    <form action="/sessions/create" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <table>
+        <tr><td><label for="email">Email</label></td>
+        <td><input type="text" id="email" name = "email" placeholder="Email"><br></td></tr>
+        <tr><td><label for="password">Password        </label></td>
+        <td><input type="password" id="password" name = "password" placeholder="Password"><br></td></tr>
+        </table>
+    <input type="submit" name="Log In" value="Log In">
+    </form>
+</div>
+<div class="piece mx-auto">
+    <% if flash[:errors] %>
+    <% flash[:errors].each do |e| %>
+        <p><%= e %></p>
+    <% end %>
+    <% end %>
+</div>
+
+
+</body>
+</html>

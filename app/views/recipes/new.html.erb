@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Coding Dojos</title>
+    <style>
+    body {
+        padding: 2em;
+         #background-image: url("https://www.desktopbackground.org/download/2560x1440/2014/08/05/804262_off-white-abstract-pattern-laminate-countertop-texture-picture_4608x3456_h.jpg"); !important; 
+        background-image: url("http://www.wildtextures.com/wp-content/uploads/2011/11/wildtextures-wooden-chopping-board-texture.jpg"); !important;                 
+         background-attachment: fixed;
+        background-size: 100%  !important;
+        font-family: "Verdana"; !important;
+        align-content: center; !important;
+    }
+    h1 {
+        margin-bottom: 1em;
+    }
+    .extra {
+        margin-top: .6em;
+        margin-bottom: .6em;
+    }
+    h3 {
+        padding-top: .4em;
+        padding-bottom: .4em;
+    }
+    .extra {
+        padding: 1em;
+    }
+    .together {
+        display: inline-block;
+        margin-right: .9em;
+    }
+    .width {
+        width: 20 %
+
+    }
+    .intro {
+        padding: 1em;
+        width: 70%;
+        background-color: rgba(255,235,205, .8);
+        border: 2px solid black;
+        border-radius: 5px;
+        margin-bottom: 1em;
+    
+    }
+    
+    .intro div, h1 {
+        display: inline-block;
+        vertical-align: top;
+    }
+    .intro div {
+        margin-left: 15em;
+        width: 23%;
+        
+    }
+    .nav {
+        width: 70%;
+    }
+    .tile {
+        padding: 1em;
+        width: 10em;
+        height: 5em;
+        border: 2px solid black;
+        background-color: rgba(255,235,205, .89);
+        content-align: center;
+        
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none;
+        color: black;
+        margin:auto;
+        
+      
+    }
+    input {
+        #width: 60%;
+    }
+    .inputsize {
+        width: 95%
+    }
+    .newtile {
+        padding: 1em;
+        width: 70%;
+        background-color: rgba(255,235,205, .8);
+        border: 2px solid black;
+        border-radius: 5px;
+        margin:auto;
+        margin-top: 1em;
+    }
+    table {
+        width: 100%;
+        margin: 1em;
+    }
+    .create {
+        margin: auto;
+        width: 30%;
+        height: 40px;
+        border: 1px solid black;
+        border-radius: 5px;
+        background-color: rgba(211,211,211, .6);
+
+    }
+    textarea, input{
+        background-color: rgba(255,255,255, .7);
+    }
+    .formbutton {
+        border: 1px solid black;
+        border-radius: 3px;
+
+    }
+
+    .title {
+        width: 38%        
+        
+    }    
+    .tomato {
+        width: 30%
+        
+        
+         
+       
+    }
+    
+    </style>
+    # <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+</head>
+<body >
+<div class="intro mx-auto" >
+<a href="https://imgur.com/PMSgZBH"><img class="title" src="https://i.imgur.com/PMSgZBH.png" title="source: imgur.com" /></a>
+    <div>
+    <a href="https://imgur.com/wnxvNyu"><img class="tomato" src="https://i.imgur.com/wnxvNyu.png" title="source: imgur.com" /></a>
+        <% if !current_user %>
+            <a href="/new">Log In</a> | <a href="/new">Register</a>
+        <% else %>
+            <h5>Welcome, <%= current_user.username %>!</h5>
+            <form action="/sessions/<%=current_user.id%>" method="post" class="together">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+            <input type="hidden" name="_method" value="delete">
+            <input class="formbutton" type="submit" value="Log Out" >
+            </form>
+            
+
+        <% end %>
+        <form action="/" class="together">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">           
+            <input class="formbutton" type="submit" value="Home">
+            </form>
+    </div>
+</div>
+
+<div class="nav mx-auto">
+    
+    <a href="/recipe/search" class="tile">Find a Recipe!</a>
+    <a href="/recipe/new" class="tile">Create a Recipe!</a>
+    <a href="/recipe/nutrition" class="tile">Nutrition Info</a>
+    <% if current_user %>
+    <a href="/user/<%= current_user.id %>" class="tile">My Profile</a>
+    <% end %>
+    
+</div>
+<div class="newtile">
+    <h1>Create a New Recipe</h1>
+    <h6>(Must be logged in)</h6>
+    <% if flash[:errors] %>
+    <% flash[:errors].each do |e| %>
+        <p><%= e %></p>
+    <% end %>
+    <% end %>
+    <form action="/recipe/new" method="post">
+    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+        <table>
+        <tr><td><strong><h5><label for="title"> Recipe Title</label></h5></strong></td>
+        <td><input class="inputsize"type="text" id="title" name="title" placeholder="Write Title Here (Required)" ></td></tr>
+
+        <tr><td><h5><label for="description"> Short Description</label></h5></td>
+        <td><textarea ROWS=3 COLS=80 class="inputsize" type="text" id="description" name="description" placeholder="150 Characters Max. (Required)"></textarea></td></tr>
+
+        <tr><td><h5><label for="links"> Link to an External Recipe? </label></h5></td>
+        <td><input class="inputsize" type="text" id="links" name="links" placeholder="Copy and Paste It Here"></td></tr>
+        </table>
+
+
+        <h5><label for="category" >Select a Category</label></h5>
+        <input type="radio" id="category" name="category" value="breakfast" checked> Breakfast <br>
+        <input type="radio" id="category" name="category" value="lunchdinner"> Lunch / Dinner<br>
+        <input type="radio" id="category" name="category" value="drinks"> Drinks<br>
+        <input type="radio" id="category" name="category" value="desserts"> Desserts<br><br>
+
+        <h5><label for="level">Select a Skill Level</label></h5>
+        
+        <input type="radio" id="level" name="level" value="1" checked> Anyone Can Do It<br>
+        <input type="radio" id="level" name="level" value="2"> (Up to) Easy Enough<br>
+        <input type="radio" id="level" name="level" value="3"> (Up to) Average<br>
+        <input type="radio" id="level" name="level" value="4"> (Up to) Takes some skill<br>
+        <input type="radio"  id="level" name="level" value="5"> (Up to) Difficult<br><br>
+        
+
+        <h5><label for="level">How Long Does it Take to Make?</label></h5>
+        <input type="radio" id="time" name="time" value="1" checked> Less than 5 minutes<br>
+        <input type="radio" id="time" name="time" value="2"> Between 5 and 10 minutes<br>
+        <input type="radio" id="time" name="time" value="3"> Between 10 and 20 Minutes<br>
+        <input type="radio" id="time" name="time" value="4"> Between 20 and 30 Minutes<br>
+        <input type="radio" id="time" name="time" value="5"> More than 30 minutes
+        <br>
+        <br>
+        <table>
+        <tr><td><h5><label for="ingredients"> Ingredients</label></h5></td>
+        <td><textarea ROWS=15 COLS=80 class="inputsize" type="text" id="ingredients" name="ingredients" placeholder="List all Here"></textarea></td></tr>
+        
+        <tr><td><h5><label for="modifications"> Any Potential Modifications </label></h5></td>
+        <td><textarea ROWS=5 COLS=80 class="inputsize" type="text" id="modifications" name="modifications" placeholder="Copy and Past It here"></textarea></td></tr>
+        
+        <tr><td><h5><label for="text"> Instructions</label></h5></td>
+        <td><textarea ROWS=15 COLS=80 class="inputsize" type="text" id="text" name="text" placeholder="Recipe Preparation Instructions (Required)"></textarea></td></tr>
+        </table>
+
+        <input class="create" type="submit" value="Create Recipe!">
+    </form>
+    
+
+</div>
+</body>
+</html>

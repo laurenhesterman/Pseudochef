@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Coding Dojos</title>
+    <style>
+    body {
+        padding: 2em;
+         #background-image: url("https://www.desktopbackground.org/download/2560x1440/2014/08/05/804262_off-white-abstract-pattern-laminate-countertop-texture-picture_4608x3456_h.jpg"); !important; 
+         background-image: url("http://www.wildtextures.com/wp-content/uploads/2011/11/wildtextures-wooden-chopping-board-texture.jpg"); !important;        
+         
+         background-attachment: fixed;
+        background-size: 100%  !important;
+        font-family: "Verdana"; !important;
+        text-align:center;
+        
+    }
+    h1 {
+        margin-bottom: 1em;
+    }
+    .extra {
+        margin-top: .6em;
+        margin-bottom: .6em;
+    }
+    h3 {
+        padding-top: .4em;
+        padding-bottom: .4em;
+    }
+    .extra {
+        padding: 1em;
+    }
+    .together {
+        display: inline-block;
+        margin-right: .9em;
+    }
+    .width {
+        width: 20 %
+
+    }
+    .intro {
+    padding: 1em;
+    width: 70%;
+    #background-image: url("https://media.istockphoto.com/photos/old-grunge-wooden-cutting-kitchen-desk-board-background-texture-picture-id462577789?k=6&m=462577789&s=612x612&w=0&h=G4VwHTk5ahYlOxlD_Ob9e3rKpihWvsNxKVgoywzQECY="); !important;
+    background-color: rgba(255,235,205, .8);
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-bottom: 1em;
+    #margin:auto;
+    
+
+   
+    
+    
+    }
+    .intro div, h1 {
+        display: inline-block;
+        vertical-align: top;
+    }
+    .intro div {
+        margin-left: 15em;
+        width: 23%;
+        
+    }
+    .nav {
+        width: 70%;
+    }
+    .tile {
+        padding: 1em;
+        width: 10em;
+        height: 5em;
+        border: 2px solid black;
+        background-color: rgba(255,235,205, .89);
+        content-align: center;
+        
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none;
+        color: black;
+        margin:auto;
+        
+        
+        
+        
+        
+    }
+    .searchtile {
+        padding: 1em;
+        width: 70%;
+        background-color: rgba(255,235,205, .8);
+        border: 2px solid black;
+        border-radius: 5px;
+        margin:auto;
+        margin-top: 1em;
+    }
+
+    .formbutton {
+        border: 1px solid black;
+        border-radius: 3px;
+
+    }
+    .title {
+        width: 38%        
+        
+    }
+    .tomato {
+        width: 30%
+        
+        
+         
+       
+    }
+
+    
+    
+    </style>
+    # <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+</head>
+<body >
+<div class="intro mx-auto" >
+<a href="https://imgur.com/PMSgZBH"><img class="title" src="https://i.imgur.com/PMSgZBH.png" title="source: imgur.com" /></a>
+    <div>
+    <a href="https://imgur.com/wnxvNyu"><img class="tomato" src="https://i.imgur.com/wnxvNyu.png" title="source: imgur.com" /></a>
+    <% if !current_user %>
+        <a href="/new">Log In</a> | <a href="/new">Register</a>
+    <% else %>
+        <h5>Welcome, <%= current_user.username %>!</h5>
+        <form action="/sessions/<%=current_user.id%>" method="post" class="together">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <input type="hidden" name="_method" value="delete">
+        <input class="formbutton"type="submit" value="Log Out" >
+        </form>
+
+       
+
+    <% end %>
+    <form action="/" class="together">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">           
+            <input class="formbutton" type="submit" value="Home">
+            </form>
+    </div>
+</div>
+
+<div class="nav mx-auto">
+    
+    <a href="/recipe/search" class="tile">Find a Recipe!</a>
+    <a href="/recipe/new" class="tile">Create a Recipe!</a>
+    <a href="/recipe/nutrition" class="tile">Nutrition Info</a>
+    <% if current_user %>
+    <a href="/user/<%= current_user.id %>" class="tile">My Profile</a>
+    <% end %>
+</div>
+
+<div class="searchtile">
+    <h1>Find Something to Make</h1>
+    <form action="/recipe/find" method="post">
+    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+        <h4><label for="category" >Select a Category</label></h4>
+        <input type="radio" name="category" value="breakfast" checked> Breakfast <br>
+        <input type="radio" name="category" value="lunchdinner"> Lunch / Dinner<br>
+        <input type="radio" name="category" value="drinks"> Drinks<br>
+        <input type="radio" name="category" value="desserts"> Desserts<br>
+
+        <h4><label for="level">Filter by Skill Level</label></h4>
+        
+        <input type="radio" name="level" value="one" checked> Anyone Can Do It<br>
+        <input type="radio" name="level" value="two"> (Up to) Easy Enough<br>
+        <input type="radio" name="level" value="three"> (Up to) Average<br>
+        <input type="radio" name="level" value="four"> (Up to) Takes some skill<br>
+        <input type="radio" name="level" value="five"> (Up to) Difficult
+
+        <h4><label for="level">Filter by Time Limit</label></h4>
+        <input type="radio" name="time" value="one" checked> Less than 5 minutes<br>
+        <input type="radio" name="time" value="two"> Between 5 and 10 minutes<br>
+        <input type="radio" name="time" value="three"> Between 10 and 20 Minutes<br>
+        <input type="radio" name="time" value="four"> Between 20 and 30 Minutes<br>
+        <input type="radio" name="time" value="five"> More than 30 minutes
+
+        <h4><label for="ingredients1">Must Include These Ingredients</label></h4>
+        <input type="text" id="ingredients1" name="ingredients1"><input>
+     
+
+        <h4><label for="ingredients2">Do Not Include These Ingredients</label></h4>
+        <input type="text" id="ingredients2" name="ingredients2"><input>
+
+        <br>
+        <br>
+        <input class="find" type="submit" value="Find a Recipe!">
+    </form>
+
+
+</div>
+
+
+
+
+
+</body>
+</html>

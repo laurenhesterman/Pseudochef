@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Coding Dojos</title>
+    <style>
+    body {
+        padding: 2em;
+         #background-image: url("https://www.desktopbackground.org/download/2560x1440/2014/08/05/804262_off-white-abstract-pattern-laminate-countertop-texture-picture_4608x3456_h.jpg"); !important; 
+         background-image: url("http://www.wildtextures.com/wp-content/uploads/2011/11/wildtextures-wooden-chopping-board-texture.jpg"); !important;        
+         
+         background-attachment: fixed;
+        background-size: 100%  !important;
+        font-family: "Verdana"; !important;
+        text-align:center;
+        
+    }
+    h1 {
+        margin-bottom: 1em;
+    }
+    .extra {
+        margin-top: .6em;
+        margin-bottom: .6em;
+    }
+    h3 {
+        padding-top: .4em;
+        padding-bottom: .4em;
+    }
+    .extra {
+        padding: 1em;
+    }
+    .together {
+        display: inline-block;
+        margin-right: .9em;
+    }
+    .width {
+        width: 20 %
+
+    }
+    .intro {
+    padding: 1em;
+    width: 70%;
+    #background-image: url("https://media.istockphoto.com/photos/old-grunge-wooden-cutting-kitchen-desk-board-background-texture-picture-id462577789?k=6&m=462577789&s=612x612&w=0&h=G4VwHTk5ahYlOxlD_Ob9e3rKpihWvsNxKVgoywzQECY="); !important;
+    background-color: rgba(255,235,205, .8);
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-bottom: 1em;
+    #margin:auto;
+    
+
+   
+    
+    
+    }
+    .intro div, h1 {
+        display: inline-block;
+        vertical-align: top;
+    }
+    .intro div {
+        margin-left: 15em;
+        width: 23%;
+        
+    }
+    .nav {
+        width: 70%;
+    }
+    .tile {
+        padding: 1em;
+        width: 10em;
+        height: 5em;
+        border: 2px solid black;
+        background-color: rgba(255,235,205, .89);
+        content-align: center;
+        
+        border-radius: 5px;
+        text-align: center;
+        text-decoration: none;
+        color: black;
+        margin:auto;
+        
+        
+        
+        
+        
+    }
+    .lists {
+        padding: 1em;
+        width: 70%;
+        background-color: rgba(255,235,205, .8);
+        border: 2px solid black;
+        border-radius: 5px;
+        margin:auto;
+        margin-top: 1em;
+    }
+
+    .formbutton {
+        border: 1px solid black;
+        border-radius: 3px;
+
+    }
+    .lists .level, .time, .cat, .desc, .votes {
+        display: inline-block;
+        margin-right: 4em;
+        color: black;
+    }
+    .votes form {
+        display:inline-block;
+    }
+    .title {
+        width: 38%        
+        
+    }
+    .tomato {
+        width: 30%
+        
+        
+         
+       
+    }
+    
+    </style>
+   # <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+</head>
+<body >
+<div class="intro mx-auto" >
+<a href="https://imgur.com/PMSgZBH"><img class="title" src="https://i.imgur.com/PMSgZBH.png" title="source: imgur.com" /></a>
+    <div>
+    <a href="https://imgur.com/wnxvNyu"><img class="tomato" src="https://i.imgur.com/wnxvNyu.png" title="source: imgur.com" /></a>
+    <% if !current_user %>
+        <a href="/new">Log In</a> | <a href="/new">Register</a>
+    <% else %>
+        <h5>Welcome, <%= current_user.username %>!</h5>
+        <form action="/sessions/<%=current_user.id%>" method="post" class="together">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+        <input type="hidden" name="_method" value="delete">
+        <input class="formbutton" type="submit" value="Log Out" >
+        </form>
+       
+
+    <% end %>
+        <form action="/" class="together">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">           
+            <input class="formbutton" type="submit" value="Home">
+        </form>
+    </div>
+</div>
+
+<div class="nav mx-auto">
+    
+    <a href="/recipe/search" class="tile">Find a Recipe!</a>
+    <a href="/recipe/new" class="tile">Create a Recipe!</a>
+    <a href="/recipe/nutrition" class="tile">Nutrition Info</a>
+    <% if current_user %>
+    <a href="/user/<%= current_user.id %>" class="tile">My Profile</a>
+    <% end %>
+    
+</div>
+
+<div class="lists">
+<h2><%= @recipe.title %></h2>
+<h5>Description: </h5><p><%= @recipe.description %><p>
+
+
+<div class="cat">
+<% if @recipe.category == "breakfast" %><h5>Category: </h5><p>Breakfast</p><% end %>
+<% if @recipe.category == "lunchdinner" %><h5>Category: </h5><p>Lunch / Dinner</p></h5><% end %>
+<% if @recipe.category == "drinks" %><h5>Category: </h5><p>Drinks</h5></p><% end %>
+<% if @recipe.category == "dessert" %><h5>Category: </h5><p>Dessert</h5></p><% end %>
+</div>
+
+
+<div class="level" >
+<% if @recipe.level == 1 %><h5>Level: </h5><p>1/5 Anyone Can Do It</p><% end %>
+<% if @recipe.level == 2 %><h5>Level: </h5><p>2/5 Easy Enough</p><% end %>
+<% if @recipe.level == 3 %><h5>Level: </h5><p>3/5 Average</p><% end %>
+<% if @recipe.level == 4 %><h5>Level: </h5><p>4/5 Takes Some Skill</p><% end %>
+<% if @recipe.level == 5 %><h5>Level: </h5><p>5/5 Difficult</p><% end %>
+</div>
+
+<div class="time">
+<% if @recipe.time == 1 %><h5> Estimated Time: </h5><p>Less Than 5 Mintes</p><% end %>
+<% if @recipe.time == 2 %><h5>Estimated Time: </h5><p>Between 5 and 10 Minutes</p><% end %>
+<% if @recipe.time == 3 %><h5>Estimated Time: </h5><p>Between 10 and 20 Minutes</p><% end %>
+<% if @recipe.time == 4 %><h5>Estimated Time: </h5><p>Between 20 and 30 Minutes/p>><% end %>
+<% if @recipe.time == 5 %><h5>Estimated Time: </h5><p>More Than 30 Minutes</p><% end %>
+</div>
+
+<div class="votes">
+<h5>Upvotes:</h5>
+    
+<h5>Downvotes:</h5>
+   
+</div>
+
+<h5>Ingedients:</h5><p><%= @recipe.ingredients %></p>
+<h5>Any Possible Modifications?</h5><p><%= @recipe.modifications %></p>
+<h5>Perparation Instructions</h5><p><%= @recipe.text %></p>
+
+
+
+<h5>External Link?</h5><p><%= @recipe.links %></p>
+<h5>Created/Modified By:</h5><p><a href="/user/<%= @recipe.user.id %>" ><%= @recipe.user.username %></a></p>
+<h5>Comments:</h5>
+
+</div>
+
+
+
+</body>
+</html>
