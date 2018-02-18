@@ -42,7 +42,7 @@
     }
     .intro {
     padding: 1em;
-    width: 70%;
+    width: 80%;
     #background-image: url("https://media.istockphoto.com/photos/old-grunge-wooden-cutting-kitchen-desk-board-background-texture-picture-id462577789?k=6&m=462577789&s=612x612&w=0&h=G4VwHTk5ahYlOxlD_Ob9e3rKpihWvsNxKVgoywzQECY="); !important;
     background-color: rgba(255,235,205, .8);
     border: 2px solid black;
@@ -59,7 +59,7 @@
         
     }
     .nav {
-        width: 70%;
+        width: 80%;
     }
     .tile {
         padding: 1em;
@@ -82,7 +82,7 @@
     }
     .searchtile {
         padding: 1em;
-        width: 70%;
+        width: 80%;
         background-color: rgba(255,235,205, .8);
         border: 2px solid black;
         border-radius: 5px;
@@ -120,7 +120,7 @@
     }
      .searchtile {
         padding: 1em;
-        width: 70%;
+        width: 80%;
         background-color: rgba(255,235,205, .8);
         border: 2px solid black;
         border-radius: 5px;
@@ -135,19 +135,16 @@
     <script>
     $(document).ready(function(){
 
-
+        
         $('button').click(function(){
  
-        var cityname = $('#searchname').val();
-        console.log(cityname)
-        $.get("https://api.openweathermap.org/data/2.5/weather?q=" +  cityname + "&APPID=99a71e9bf02ba50fffe5a97ea8ed68a6", function(res) {
-                    console.log(res);
+        var food = $('#searchname').val();
+        console.log(food)
+        $.get("https://api.edamam.com/api/food-database/parser?ingr=" + food + "&app_id=fad71740&app_key=0fcabaa8edae572310d0a85288f4582c&page=0", function(res) {
+                    console.log("test", res);
 
-                    $('#cd').html("<h1>" + cityname + "</h1>");
-                    var temp = res.main.temp_max;
-                    temp = Math.floor((temp *9/5) - 459.67);
-
-                    $('#tp').html("<h3>"+ temp + " Degrees Fahrenheit" + "</h3>");
+                    $('#cd').html("<h1>" + food + "</h1>");
+                    
                 
                 }, "json");
             })
@@ -189,10 +186,12 @@
 </div>
 
 <div class="searchtile">
-
-
-
-<input id="searchname"><button>Search</button>
+<h1> Nutrition Information</h1>
+<h5>Pseudo Chef </h5>
+<h5>Input each ingredient in a recipe to determine if it fits your nutritional needs!</h5>
+<h6>(New Window will redirect)</h6> <br>
+<script type="text/javascript" id="WolframAlphaScript1b3ecca102b57d735ac385a9c03fd15b" src="//www.wolframalpha.com/widget/widget.jsp?id=1b3ecca102b57d735ac385a9c03fd15b&theme=red&output=popup"></script>
+<h6>Powered by <a href="http://www.wolframalpha.com/">WolframAlpha</a></h6> 
 <div id="cd"></div>
 <div id="tp"></div>
 </div>

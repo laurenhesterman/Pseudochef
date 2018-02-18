@@ -2,6 +2,8 @@ class RecipesController < ApplicationController
     
     def show
         @recipe =  Recipe.joins(:user).group("recipes.id").find(params[:id])
+        @upvotes = Upvote.where("recipe_id = ?", params[:id]).count
+        @downvotes = Downvote.where("recipe_id = ?", params[:id]).count
     end
 
     def create
@@ -19,6 +21,16 @@ class RecipesController < ApplicationController
 
     def search
        
+    end
+    def upvote
+        
+        Upvote.create(user_id: current_user.id, recipe_id: params[:id])
+        redirect_to "/recipe/#{params[:id]}"
+    end
+    def downvote
+        
+        Downvote.create(user_id: current_user.id, recipe_id: params[:id])
+        redirect_to "/recipe/#{params[:id]}"
     end
 
     def destroy

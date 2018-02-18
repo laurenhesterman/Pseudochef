@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   
   get 'recipe/nutrition' => 'recipes#nutrition'
   get '/recipe/:id' => 'recipes#show'
+  post '/recipe/:id/upvote' => 'recipes#upvote'
+  post '/recipe/:id/downvote' => 'recipes#downvote'
   post '/sessions/create' => 'sessions#create'
   post '/users/create' => 'users#create'
   post '/recipe/search' => 'recipes#search'

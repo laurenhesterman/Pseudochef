@@ -41,17 +41,14 @@
     }
     .intro {
     padding: 1em;
-    width: 70%;
+    width: 80%;
     #background-image: url("https://media.istockphoto.com/photos/old-grunge-wooden-cutting-kitchen-desk-board-background-texture-picture-id462577789?k=6&m=462577789&s=612x612&w=0&h=G4VwHTk5ahYlOxlD_Ob9e3rKpihWvsNxKVgoywzQECY="); !important;
     background-color: rgba(255,235,205, .8);
     border: 2px solid black;
     border-radius: 5px;
     margin-bottom: 1em;
     #margin:auto;
-    
-
-   
-    
+  
     
     }
     .intro div, h1 {
@@ -64,7 +61,7 @@
         
     }
     .nav {
-        width: 70%;
+        width: 80%;
     }
     .tile {
         padding: 1em;
@@ -79,15 +76,12 @@
         text-decoration: none;
         color: black;
         margin:auto;
-        
-        
-        
-        
+     
         
     }
     .lists {
         padding: 1em;
-        width: 70%;
+        width: 80%;
         background-color: rgba(255,235,205, .8);
         border: 2px solid black;
         border-radius: 5px;
@@ -100,27 +94,30 @@
         border-radius: 3px;
 
     }
+   
     .lists .level, .time, .cat, .desc, .votes {
         display: inline-block;
-        margin-right: 4em;
+        margin-right: 8%;
         color: black;
     }
     .votes form {
         display:inline-block;
     }
+    # .votes {
+    #     margin: none;
+    # }
     .title {
         width: 38%        
         
     }
     .tomato {
         width: 30%
-        
-        
-         
+    
        
     }
     
     </style>
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
    # <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 </head>
 <body >
@@ -162,7 +159,24 @@
 <h2><%= @recipe.title %></h2>
 <h5>Description: </h5><p><%= @recipe.description %><p>
 
+<div class="votes">
+<h5 >Upvotes: <%= @upvotes %></h5>
+<h5>Downvotes: <%= @downvotes %></h5>
+<% if current_user %>
+    <form action="/recipe/<%= @recipe.id %>/upvote" class="together" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">           
+    <button type="submit" class="formbutton"><i class="fas fa-arrow-up"></i></button>
+    </form>
 
+    <form action="/recipe/<%= @recipe.id %>/downvote" class="together" method="post">
+    <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">           
+   
+    <button type="submit" class="formbutton"><i class="fas fa-arrow-down"></i></button>
+    </form>
+    <% end %>
+    
+   
+</div>
 <div class="cat">
 <% if @recipe.category == "breakfast" %><h5>Category: </h5><p>Breakfast</p><% end %>
 <% if @recipe.category == "lunchdinner" %><h5>Category: </h5><p>Lunch / Dinner</p></h5><% end %>
@@ -187,12 +201,7 @@
 <% if @recipe.time == 5 %><h5>Estimated Time: </h5><p>More Than 30 Minutes</p><% end %>
 </div>
 
-<div class="votes">
-<h5>Upvotes:</h5>
-    
-<h5>Downvotes:</h5>
-   
-</div>
+
 
 <h5>Ingedients:</h5><p><%= @recipe.ingredients %></p>
 <h5>Any Possible Modifications?</h5><p><%= @recipe.modifications %></p>

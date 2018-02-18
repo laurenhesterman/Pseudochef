@@ -6,3 +6,4 @@ class ApplicationController < ActionController::Base
   end
   helper_method :current_user
 end
+# skip_before_filter :verify_authenticity_token, :only => [:update]
