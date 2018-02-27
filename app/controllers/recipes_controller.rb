@@ -20,7 +20,13 @@ class RecipesController < ApplicationController
     end
 
     def search
-       
+        @recipesall = Recipe.where("category = ? and level = ? and time = ?", params[:category], params[:level], params[:time])
+        # @search = @recipesall.search do
+        #     fulltext params[:search]
+        # end
+        # if (@search)
+        #     @recipesall += @search.results
+        # end
     end
     def upvote
         
@@ -46,15 +52,12 @@ class RecipesController < ApplicationController
     end
 
     def find
-        @recipesall = Sunspot.search(Recipe) do
-            fulltext params[:ingredients1]
+        @recipesall = Recipe.where("category = ? and level = ? and time = ?", params[:category], params[:level], params[:time])
         
-            with :level, params[:level]
-            with :time, params[:time]
             
-        end
        
-        print (@recipesall)
+       
+        puts @recipesall
         print ("testtestes")
     end
 

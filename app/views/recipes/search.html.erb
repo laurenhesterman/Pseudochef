@@ -48,6 +48,7 @@
     border-radius: 5px;
     margin-bottom: 1em;
     #margin:auto;
+    height: 170px;
     
 
    
@@ -59,8 +60,10 @@
         vertical-align: top;
     }
     .intro div {
-        margin-left: 15em;
-        width: 23%;
+        width: 20%;
+        vertical-align:top;
+        position:absolute;
+        left: 64%;
         
     }
     .nav {
@@ -85,6 +88,25 @@
         
         
     }
+    .lists {
+        padding: 1em;
+        width: 50%;
+        background-color: rgba(255,235,205, .8);
+        border: 2px solid black;
+        border-radius: 5px;
+        margin:auto;
+        margin-top: 1.4em;
+        
+        }
+    .lists .level, .time, .cat, .desc, .votes {
+        display: inline-block;
+        margin-right: 4em;
+        color: black;
+    }
+    .lists h1 {
+        color: black;
+    }
+    
     .searchtile {
         padding: 1em;
         width: 80%;
@@ -106,10 +128,13 @@
     }
     .tomato {
         width: 30%
-        
-        
-         
+    
        
+    }
+    .listtile {
+        display: inline-block;
+        width: 250px;
+        vertical-align:top;
     }
 
     
@@ -123,7 +148,7 @@
     <div>
     <a href="https://imgur.com/wnxvNyu"><img class="tomato" src="https://i.imgur.com/wnxvNyu.png" title="source: imgur.com" /></a>
     <% if !current_user %>
-        <a href="/new">Log In</a> | <a href="/new">Register</a>
+        
     <% else %>
         <h5>Welcome, <%= current_user.username %>!</h5>
         <form action="/sessions/<%=current_user.id%>" method="post" class="together">
@@ -150,49 +175,107 @@
     <% if current_user %>
     <a href="/user/<%= current_user.id %>" class="tile">My Profile</a>
     <% end %>
+    <% if !current_user %>
+    <div class ="tile">
+        <a href="/new">Log In</a> | <a href="/new">Register</a>
+    </div>
+<% end %>
 </div>
 
 <div class="searchtile">
-    <h1>Find Something to Make</h1>
-    <form action="/recipe/find" method="post">
+    <h1>Find Something to Make!</h1><br>
+    <form action="/recipe/search" method="post">
     <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-        <h4><label for="category" >Select a Category</label></h4>
-        <input type="radio" name="category" value="breakfast" checked> Breakfast <br>
-        <input type="radio" name="category" value="lunchdinner"> Lunch / Dinner<br>
-        <input type="radio" name="category" value="drinks"> Drinks<br>
-        <input type="radio" name="category" value="desserts"> Desserts<br>
-
+      <div class= "listtile"> 
+    <h4><label for="category" >Select a Category</label></h4>
+    <input type="radio" name="category" value="breakfast" checked> Breakfast <br>
+    <input type="radio" name="category" value="lunchdinner"> Lunch / Dinner<br>
+    <input type="radio" name="category" value="drinks"> Drinks<br>
+    <input type="radio" name="category" value="desserts"> Desserts<br><br>
+    </div>
+    <div class= "listtile"> 
         <h4><label for="level">Filter by Skill Level</label></h4>
-        
-        <input type="radio" name="level" value="one" checked> Anyone Can Do It<br>
-        <input type="radio" name="level" value="two"> (Up to) Easy Enough<br>
-        <input type="radio" name="level" value="three"> (Up to) Average<br>
-        <input type="radio" name="level" value="four"> (Up to) Takes some skill<br>
-        <input type="radio" name="level" value="five"> (Up to) Difficult
-
+           
+        <input type="radio" name="level" value="1" checked> Anyone Can Do It<br>
+        <input type="radio" name="level" value="2"> (Up to) Easy Enough<br>
+        <input type="radio" name="level" value="3"> (Up to) Average<br>
+        <input type="radio" name="level" value="4"> (Up to) Takes some skill<br>
+        <input type="radio" name="level" value="5"> (Up to) Difficult<br><br>
+        </div>
+        <div class= "listtile"> 
         <h4><label for="level">Filter by Time Limit</label></h4>
-        <input type="radio" name="time" value="one" checked> Less than 5 minutes<br>
-        <input type="radio" name="time" value="two"> Between 5 and 10 minutes<br>
-        <input type="radio" name="time" value="three"> Between 10 and 20 Minutes<br>
-        <input type="radio" name="time" value="four"> Between 20 and 30 Minutes<br>
-        <input type="radio" name="time" value="five"> More than 30 minutes
-
-        <h4><label for="ingredients1">Must Include These Ingredients</label></h4>
-        <input type="text" id="ingredients1" name="ingredients1"><input>
-     
-
-        <h4><label for="ingredients2">Do Not Include These Ingredients</label></h4>
-        <input type="text" id="ingredients2" name="ingredients2"><input>
-
+        <input type="radio" name="time" value="1" checked> Less than 5 minutes<br>
+        <input type="radio" name="time" value="2"> Between 5 and 10 minutes<br>
+        <input type="radio" name="time" value="3"> Between 10 and 20 Minutes<br>
+        <input type="radio" name="time" value="4"> Between 20 and 30 Minutes<br>
+        <input type="radio" name="time" value="5"> More than 30 minutes
+ </div>
         <br>
         <br>
+       
+       
+           
         <input class="find" type="submit" value="Find a Recipe!">
     </form>
 
 
 </div>
 
+<% if @recipesall.length >0 %>
 
+
+<% @recipesall.each do |recipe| %> 
+    <a href="/recipe/<%= recipe.id %>"> 
+
+    
+
+    <div class="lists">
+    <h3><%= recipe.title %></h3> 
+    <div class="desc">
+    <h5>Description:</h5><p><%= recipe.description %></p>
+    </div>
+
+    
+
+    <div class="cat">
+    <% if recipe.category == "breakfast" %><h5>Category: </h5><p>Breakfast</p><% end %>
+    <% if recipe.category == "lunchdinner" %><h5>Category: </h5><p>Lunch / Dinner</p></h5><% end %>
+    <% if recipe.category == "drinks" %><h5>Category: </h5><p>Drinks</h5></p><% end %>
+    <% if recipe.category == "dessert" %><h5>Category: </h5><p>Dessert</h5></p><% end %>
+    </div>
+
+    <div class="votes">
+    <h5>Upvotes:</h5>
+    <h5>Downvotes:</h5>
+    </div>
+
+    <div class="level" >
+    <% if recipe.level == 1 %><h5>Level: </h5><p>1/5 Anyone Can Do It</p><% end %>
+    <% if recipe.level == 2 %><h5>Level: </h5><p>2/5 Easy Enough</p><% end %>
+    <% if recipe.level == 3 %><h5>Level: </h5><p>3/5 Average</p><% end %>
+    <% if recipe.level == 4 %><h5>Level: </h5><p>4/5 Takes Some Skill</p><% end %>
+    <% if recipe.level == 5 %><h5>Level: </h5><p>5/5 Difficult</p><% end %>
+    </div>
+
+    <div class="time">
+    <% if recipe.time == 1 %><h5> Estimated Time: </h5><p>Less Than 5 Mintes</p><% end %>
+    <% if recipe.time == 2 %><h5>Estimated Time: </h5><p>Between 5 and 10 Minutes</p><% end %>
+    <% if recipe.time == 3 %><h5>Estimated Time: </h5><p>Between 10 and 20 Minutes</p><% end %>
+    <% if recipe.time == 4 %><h5>Estimated Time: </h5><p>Between 20 and 30 Minutes/p>><% end %>
+    <% if recipe.time == 5 %><h5>Estimated Time: </h5><p>More Than 30 Minutes</p><% end %>
+    </div>
+    </a>
+    
+    
+    
+    
+
+    
+    
+    </div>
+<% end %>
+
+<% end %>
 
 
 

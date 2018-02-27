@@ -20,6 +20,8 @@ class UsersController < ApplicationController
     end
     def user
         @user = User.find(params[:id])
+        # @lists = Upvote.joins(:recipe).where("user_id = ?", 1)
+       
         @recipes = Recipe.where("user_id = ?", params[:id])
     end
     private

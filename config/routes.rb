@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get '/new'  => 'users#new'
   get '/user/:id' => 'users#user'
   get '/recipe/search' => 'recipes#search'  
-  post '/recipe/find' => 'recipes#find'
+  post '/recipe/search' => 'recipes#search'
   get '/recipe/new' => 'recipes#new'
   
   post '/recipe/new' => 'recipes#create'

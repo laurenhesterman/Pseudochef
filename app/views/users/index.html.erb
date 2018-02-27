@@ -44,6 +44,8 @@
         border: 2px solid black;
         border-radius: 5px;
         margin-bottom: 1em;
+        height: 170px;
+        
     }
     .lists {
         padding: 1em;
@@ -60,8 +62,10 @@
         vertical-align: top;
     }
     .intro div {
-        margin-left: 15em;
-        width: 23%;
+        width: 20%;
+        vertical-align:top;
+        position:absolute;
+        left: 64%;
         
         
     }
@@ -124,7 +128,7 @@
    <div class="logindiv">
    <a href="https://imgur.com/wnxvNyu"><img class="tomato" src="https://i.imgur.com/wnxvNyu.png" title="source: imgur.com" /></a>
     <% if !current_user %>
-        <a href="/new">Log In</a> | <a href="/new">Register</a>
+       
     <% else %>
     
     
@@ -139,6 +143,7 @@
         <input class="formbutton" type="submit" value="Home">
         </form>
         
+
         
         
         
@@ -149,6 +154,7 @@
 
 </div>
 
+
 <div class="nav mx-auto">
     
     <a href="/recipe/search" class="tile">Find a Recipe!</a>
@@ -157,9 +163,19 @@
     <% if current_user %>
     <a href="/user/<%= current_user.id %>" class="tile">My Profile</a>
     <% end %>
+    <% if !current_user %>
+        <div class ="tile">
+            <a href="/new">Log In</a> | <a href="/new">Register</a>
+        </div>
+    <% end %>
     
 </div>
 <div class="lists">
+<h4>Welcome to Pseudo Chef!</h3>
+<p>Find new recipes that make cooking easy and fun- no matter the kitchen or budget! Search with certain filters, look up nutrition information, and create your own recipes for others to use! </p>
+</div>
+<div class="lists">
+<h3>Filter Ingredients</h3>
     <%= form_tag action="/", :method => :get do %>
         <p>
         <%= text_field_tag :search, params[:search]%>

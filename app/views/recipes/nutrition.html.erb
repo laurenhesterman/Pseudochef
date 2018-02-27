@@ -47,15 +47,18 @@
     background-color: rgba(255,235,205, .8);
     border: 2px solid black;
     border-radius: 5px;
-    margin-bottom: 1em;    
+    margin-bottom: 1em;  
+    height: 170px;  
     }
     .intro div, h1 {
         display: inline-block;
         vertical-align: top;
     }
     .intro div {
-        margin-left: 15em;
-        width: 23%;
+        width: 20%;
+        vertical-align:top;
+        position:absolute;
+        left: 64%;
         
     }
     .nav {
@@ -155,22 +158,23 @@
 <div class="intro mx-auto" >
 <a href="https://imgur.com/PMSgZBH"><img class="title"src="https://i.imgur.com/PMSgZBH.png" title="source: imgur.com" /></a>
 <div>
-<a href="https://imgur.com/wnxvNyu"><img class="tomato" src="https://i.imgur.com/wnxvNyu.png" title="source: imgur.com" /></a>
-    <% if !current_user %>
-        <a href="/new">Log In</a> | <a href="/new">Register</a>
-    <% else %>
-        <h5>Welcome, <%= current_user.username %>!</h5>
-        <form action="/sessions/<%=current_user.id%>" method="post" class="together">
-        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-        <input type="hidden" name="_method" value="delete">
-        <input class="formbutton" type="submit" value="Log Out" >
-        </form>
-        <form action="/" class="together">
-        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">           
-        <input class="formbutton" type="submit" value="Home">
-        </form>
+    <a href="https://imgur.com/wnxvNyu"><img class="tomato" src="https://i.imgur.com/wnxvNyu.png" title="source: imgur.com" /></a>
+        <% if !current_user %>
+            
+        <% else %>
+            <h5>Welcome, <%= current_user.username %>!</h5>
+            <form action="/sessions/<%=current_user.id%>" method="post" class="together">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+            <input type="hidden" name="_method" value="delete">
+            <input class="formbutton" type="submit" value="Log Out" >
+            </form>
+            
 
-    <% end %>
+        <% end %>
+        <form action="/" class="together">
+            <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">           
+            <input class="formbutton" type="submit" value="Home">
+            </form>
     </div>
 </div>
 
@@ -182,6 +186,11 @@
     <% if current_user %>
     <a href="/user/<%= current_user.id %>" class="tile">My Profile</a>
     <% end %>
+    <% if !current_user %>
+    <div class ="tile">
+        <a href="/new">Log In</a> | <a href="/new">Register</a>
+    </div>
+<% end %>
     
 </div>
 

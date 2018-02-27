@@ -15,7 +15,7 @@ class Recipe < ActiveRecord::Base
 
   searchable do
     text :ingredients, :description
-    string :category  
+    # string :category  
     integer :time
     integer :level
     end

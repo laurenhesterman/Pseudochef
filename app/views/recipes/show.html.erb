@@ -42,11 +42,13 @@
     .intro {
     padding: 1em;
     width: 80%;
+    # display: flex;
     #background-image: url("https://media.istockphoto.com/photos/old-grunge-wooden-cutting-kitchen-desk-board-background-texture-picture-id462577789?k=6&m=462577789&s=612x612&w=0&h=G4VwHTk5ahYlOxlD_Ob9e3rKpihWvsNxKVgoywzQECY="); !important;
     background-color: rgba(255,235,205, .8);
     border: 2px solid black;
     border-radius: 5px;
     margin-bottom: 1em;
+    height: 170px;
     #margin:auto;
   
     
@@ -56,8 +58,12 @@
         vertical-align: top;
     }
     .intro div {
-        margin-left: 15em;
-        width: 23%;
+        # margin-left: 70%;
+        width: 20%;
+        vertical-align:top;
+        position:absolute;
+        left: 64%;
+
         
     }
     .nav {
@@ -126,7 +132,7 @@
     <div>
     <a href="https://imgur.com/wnxvNyu"><img class="tomato" src="https://i.imgur.com/wnxvNyu.png" title="source: imgur.com" /></a>
     <% if !current_user %>
-        <a href="/new">Log In</a> | <a href="/new">Register</a>
+        
     <% else %>
         <h5>Welcome, <%= current_user.username %>!</h5>
         <form action="/sessions/<%=current_user.id%>" method="post" class="together">
@@ -151,6 +157,11 @@
     <a href="/recipe/nutrition" class="tile">Nutrition Info</a>
     <% if current_user %>
     <a href="/user/<%= current_user.id %>" class="tile">My Profile</a>
+    <% end %>
+    <% if !current_user %>
+    <div class ="tile">
+        <a href="/new">Log In</a> | <a href="/new">Register</a>
+    </div>
     <% end %>
     
 </div>
