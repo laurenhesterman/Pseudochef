@@ -81,5 +81,5 @@ test:
 production:
   <<: *default
   database: Pseudochef_production
-  username: Pseudochef
+  username: ubuntu
   password: <%= ENV['PSEUDOCHEF_DATABASE_PASSWORD'] %>
