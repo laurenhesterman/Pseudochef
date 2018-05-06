@@ -5,9 +5,7 @@ Rails.application.routes.draw do
   get '/recipe/search' => 'recipes#search'  
   post '/recipe/search' => 'recipes#search'
   get '/recipe/new' => 'recipes#new'
-  
-  post '/recipe/new' => 'recipes#create'
-  
+  post '/recipe/new' => 'recipes#create' 
   get 'recipe/nutrition' => 'recipes#nutrition'
   get '/recipe/:id' => 'recipes#show'
   post '/recipe/:id/upvote' => 'recipes#upvote'
