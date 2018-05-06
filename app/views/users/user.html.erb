@@ -224,7 +224,7 @@
     
     
     <br>
-    <% if current_user %>
+
     <% if @user.id == current_user.id %>
         <form action="/recipe/<%= recipe.id %>" method="post" class="together">
         <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
@@ -232,7 +232,7 @@
         <input class="formbutton" type="submit" value="Delete Recipe" >
         </form>
     <% end %>
-    <% end %>
+  
     
     </div>
 <% end %>
