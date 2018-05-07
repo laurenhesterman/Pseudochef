@@ -25,8 +25,10 @@ gem 'rest-client'
 gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   gem 'rspec-rails'
+  gem "database_cleaner"
   gem 'factory_girl_rails'
   gem 'capybara'
+  gem "selenium-webdriver"
 end
 gem 'rack-cors', :require => 'rack/cors'
 # Use ActiveModel has_secure_password
