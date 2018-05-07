@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   post '/recipe/search' => 'recipes#search'
   delete '/recipe/:id' => 'recipes#destroy'
   delete 'sessions/:id' => 'sessions#destroy'
+  get '/404' => 'errors#error_404'
 end

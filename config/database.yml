@@ -77,9 +77,9 @@ test:
 #
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
-#
+# #
 production:
   <<: *default
   database: Pseudochef_production
-  username: ubuntu
+  username: Pseudochef
   password: <%= ENV['PSEUDOCHEF_DATABASE_PASSWORD'] %>
